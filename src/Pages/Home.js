@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
 import MainPageLayout from '../Components/MainPageLayout';
+import { apiGet } from '../misc/config';
 
 const Home = () => {
   const [input, setInput] = useState('');
+  const [Results, setResults] = useState(null);
 
   const onSearch = (search = input) => {
-    // https://api.tvmaze.com/search/shows?q=action
-    const url = `https://api.tvmaze.com/search/shows?q=${search}`;
-    fetch(url)
-      .then(response => {
-        return response.json();
-      })
-      .then(data => {
-        console.log(data);
-      });
+    apiGet(`/search/shows?q=${search}`).then(result => {
+      setResults(result);
+    });
   };
 
   const onInputChange = ev => {
@@ -26,25 +22,39 @@ const Home = () => {
     }
   };
 
+  const renderResults = (results = Results) => {
+    if (results && results.length === 0) {
+      return <div> No results to be shown </div>;
+    }
+    if (results && results.length > 0) {
+      return (
+        <div>
+          {results.map(item => (
+            <div key={item.show.id}> {item.show.name} </div>
+          ))}
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <MainPageLayout>
-      {' '}
       <input
         type="text"
         onChange={onInputChange}
         onKeyDown={KeyDown}
         value={input}
       />
-      <br />
       <button
         type="button"
         onClick={() => {
           onSearch();
         }}
       >
-        {' '}
         Search
       </button>
+      <div> {renderResults(Results)}</div>
     </MainPageLayout>
   );
 };
