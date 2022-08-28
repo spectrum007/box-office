@@ -5,9 +5,12 @@ import { apiGet } from '../misc/config';
 const Home = () => {
   const [input, setInput] = useState('');
   const [Results, setResults] = useState(null);
+  const [SearchOption, SetSeatchOption] = useState('shows');
 
-  const onSearch = (search = input) => {
-    apiGet(`/search/shows?q=${search}`).then(result => {
+  const isShowsSearch = SearchOption === 'shows';
+
+  const onSearch = search => {
+    apiGet(`/search/${SearchOption}?q=${search}`).then(result => {
       setResults(result);
     });
   };
@@ -22,39 +25,66 @@ const Home = () => {
     }
   };
 
-  const renderResults = (results = Results) => {
-    if (results && results.length === 0) {
+  const renderResults = () => {
+    if (Results && Results.length === 0) {
       return <div> No results to be shown </div>;
     }
-    if (results && results.length > 0) {
-      return (
-        <div>
-          {results.map(item => (
-            <div key={item.show.id}> {item.show.name} </div>
-          ))}
-        </div>
-      );
+    if (Results && Results.length > 0) {
+      return Results[0].show
+        ? Results.map(item => <div key={item.show.id}> {item.show.name}</div>)
+        : Results.map(item => (
+            <div key={item.person.id}> {item.person.name} </div>
+          ));
     }
+
     return null;
+  };
+
+  const onRadioChange = ev => {
+    SetSeatchOption(ev.target.value);
   };
 
   return (
     <MainPageLayout>
       <input
         type="text"
+        placeholder="Search anything"
         onChange={onInputChange}
         onKeyDown={KeyDown}
         value={input}
       />
+      <div>
+        <label htmlFor="searchShows">
+          Shows
+          <input
+            id="searchShows"
+            type="radio"
+            value="shows"
+            checked={isShowsSearch}
+            onChange={onRadioChange}
+          />
+        </label>
+        <label htmlFor="searchPeople">
+          People
+          <input
+            id="searchPeople"
+            type="radio"
+            value="people"
+            checked={!isShowsSearch}
+            onChange={onRadioChange}
+          />
+        </label>
+      </div>
+
       <button
         type="button"
         onClick={() => {
-          onSearch();
+          onSearch(input);
         }}
       >
         Search
       </button>
-      <div> {renderResults(Results)}</div>
+      {renderResults()}
     </MainPageLayout>
   );
 };
