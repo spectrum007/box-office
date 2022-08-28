@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
+import ActorGrid from '../Components/Actors/ActorGrid';
 import MainPageLayout from '../Components/MainPageLayout';
+import ShowGrid from '../Components/Show/ShowGrid';
 import { apiGet } from '../misc/config';
 
 const Home = () => {
   const [input, setInput] = useState('');
   const [Results, setResults] = useState(null);
-  const [SearchOption, SetSeatchOption] = useState('shows');
+  const [SearchOption, SetSearchOption] = useState('shows');
 
   const isShowsSearch = SearchOption === 'shows';
 
@@ -21,7 +23,7 @@ const Home = () => {
 
   const KeyDown = ev => {
     if (ev.keyCode === 13) {
-      onSearch();
+      onSearch(input);
     }
   };
 
@@ -30,18 +32,18 @@ const Home = () => {
       return <div> No results to be shown </div>;
     }
     if (Results && Results.length > 0) {
-      return Results[0].show
-        ? Results.map(item => <div key={item.show.id}> {item.show.name}</div>)
-        : Results.map(item => (
-            <div key={item.person.id}> {item.person.name} </div>
-          ));
+      return Results[0].show ? (
+        <ShowGrid data={Results} />
+      ) : (
+        <ActorGrid data={Results} />
+      );
     }
 
     return null;
   };
 
   const onRadioChange = ev => {
-    SetSeatchOption(ev.target.value);
+    SetSearchOption(ev.target.value);
   };
 
   return (
