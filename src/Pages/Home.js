@@ -11,8 +11,8 @@ const Home = () => {
 
   const isShowsSearch = SearchOption === 'shows';
 
-  const onSearch = search => {
-    apiGet(`/search/${SearchOption}?q=${search}`).then(result => {
+  const onSearch = () => {
+    apiGet(`/search/${SearchOption}?q=${input}`).then(result => {
       setResults(result);
     });
   };
@@ -23,7 +23,7 @@ const Home = () => {
 
   const KeyDown = ev => {
     if (ev.keyCode === 13) {
-      onSearch(input);
+      onSearch();
     }
   };
 
@@ -81,7 +81,7 @@ const Home = () => {
       <button
         type="button"
         onClick={() => {
-          onSearch(input);
+          onSearch();
         }}
       >
         Search
