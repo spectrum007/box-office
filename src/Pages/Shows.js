@@ -21,11 +21,13 @@ const reducer = (prevState, action) => {
       return prevState;
   }
 };
+
 const initialState = {
   Show: null,
   isLoading: true,
   Error: null,
 };
+
 const Shows = () => {
   const { id } = useParams();
 
