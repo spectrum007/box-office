@@ -1,6 +1,6 @@
 import { useReducer, useEffect } from 'react';
 
-export function ShowsReducer(prevState, action) {
+function ShowsReducer(prevState, action) {
   // The action is just an object we pass when we use the dispatch method
   switch (action.type) {
     case 'Add': {
@@ -14,7 +14,11 @@ export function ShowsReducer(prevState, action) {
   }
 }
 
-function usePersistedReducer(reducer, initialState, key) {
+export function usePersistedReducer(
+  reducer = ShowsReducer,
+  initialState = [],
+  key = 'shows'
+) {
   const [state, dispatch] = useReducer(reducer, initialState, initial => {
     const persisted = localStorage.getItem(key);
     return persisted ? JSON.parse(persisted) : initial;
@@ -25,6 +29,6 @@ function usePersistedReducer(reducer, initialState, key) {
 
   return [state, dispatch];
 }
-export function useShows(key = 'shows') {
-  return usePersistedReducer(ShowsReducer, [], key);
-}
+// export function useShows(key = 'shows') {
+//   return usePersistedReducer(ShowsReducer, [], key);
+// }
