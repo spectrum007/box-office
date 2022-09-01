@@ -17,12 +17,13 @@ function ShowsReducer(prevState, action) {
 export function usePersistedReducer(
   reducer = ShowsReducer,
   initialState = [],
-  key = 'shows'
+  key = 'Shows'
 ) {
   const [state, dispatch] = useReducer(reducer, initialState, initial => {
     const persisted = localStorage.getItem(key);
     return persisted ? JSON.parse(persisted) : initial;
   });
+
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(state));
   }, [state, key]);
