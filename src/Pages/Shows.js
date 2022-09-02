@@ -5,7 +5,7 @@ import ShowMainData from '../Components/Show/ShowMainData';
 import Details from '../Components/Show/Details';
 import Seasons from '../Components/Show/Seasons';
 import Cast from '../Components/Show/Cast';
-import { InfoBlock, ShowPageWrapper } from '../Components/Show/Show.Styled';
+import { InfoBlock, ShowPageWrapper } from './Show.Styled';
 import { useShow } from '../misc/Custom-hooks';
 
 const Shows = () => {
