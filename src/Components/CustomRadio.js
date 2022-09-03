@@ -24,13 +24,16 @@ const RadioWrapper = styled.label`
     height: 16px;
     width: 16px;
     background-color: #fff;
-    border: 2px solid ${({ theme }) => theme.mainColors.blue};
+    border: 2px solid ${({ theme }) => theme.mainColors.gray};
     border-radius: 50%;
   }
 
   input:checked ~ span {
     background-color: #fff;
-    border: 2px solid ${({ theme }) => theme.mainColors.blue};
+    border: 2px solid ${({ theme }) => theme.mainColors.red};
+    &.actors {
+      border: 2px solid ${({ theme }) => theme.mainColors.blue};
+    }
   }
 
   span:after {
@@ -49,16 +52,20 @@ const RadioWrapper = styled.label`
     width: 8px;
     height: 8px;
     border-radius: 50%;
-    background: ${({ theme }) => theme.mainColors.blue};
+    background: ${props => {
+      return props.gopal === 'x'
+        ? props.theme.mainColors.blue
+        : props.theme.mainColors.red;
+    }};
   }
 `;
 
-const CustomRadio = ({ label, ...restofprops }) => {
+const CustomRadio = ({ label, input, className, ...restofprops }) => {
   return (
-    <RadioWrapper htmlFor={restofprops.id}>
+    <RadioWrapper htmlFor={restofprops.id} className={className} gopal={input}>
       {label}
-      <input {...restofprops} type="radio" />
-      <span />
+      <input className={className} {...restofprops} type="radio" />
+      <span className={className} />
     </RadioWrapper>
   );
 };

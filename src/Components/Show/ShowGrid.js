@@ -2,10 +2,10 @@ import React from 'react';
 import ShowCard from './ShowCard';
 import ImageNotFound from '../../Images/not-found.png';
 import { FlexGrid } from '../Styled';
-import { usePersistedReducer } from '../../misc/Custom-hooks';
+import { useShows } from '../../misc/Custom-hooks';
 
 const ShowGrid = ({ data }) => {
-  const [starredShows, DispatchStarred] = usePersistedReducer();
+  const [starredShows, DispatchStarred] = useShows();
 
   return (
     <FlexGrid>

@@ -35,7 +35,6 @@ export const SearchButtonWrapper = styled.div`
 
   button {
     color: #fff;
-    background-color: ${({ theme }) => theme.mainColors.blue};
     margin: auto;
     padding: 10px 50px;
     font-size: 15px;
@@ -44,6 +43,10 @@ export const SearchButtonWrapper = styled.div`
     border-radius: 12px;
     &:hover {
       cursor: pointer;
+    }
+    background-color: ${({ theme }) => theme.mainColors.blue};
+    &.active {
+      background-color: ${({ theme }) => theme.mainColors.red};
     }
   }
 `;

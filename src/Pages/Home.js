@@ -54,7 +54,7 @@ const Home = () => {
   };
 
   return (
-    <MainPageLayout>
+    <MainPageLayout isShows={SearchOption}>
       <SearchInput
         type="text"
         placeholder="Search anything"
@@ -74,6 +74,8 @@ const Home = () => {
         </div>
         <div>
           <CustomRadio
+            input="x"
+            className="actors"
             label="Actors"
             id="searchPeople"
             value="people"
@@ -84,6 +86,7 @@ const Home = () => {
       </RadioInputsWrapper>
       <SearchButtonWrapper>
         <button
+          className={isShowsSearch ? 'active' : ''}
           type="button"
           onClick={() => {
             onSearch();

@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer } from 'react';
 import MainPageLayout from '../Components/MainPageLayout';
-import { usePersistedReducer } from '../misc/Custom-hooks';
+import { useShows } from '../misc/Custom-hooks';
 import { apiGet } from '../misc/config';
 import ShowGrid from '../Components/Show/ShowGrid';
 
@@ -20,13 +20,13 @@ const reducer = (prevState, action) => {
   }
 };
 const initialState = {
-  shows: [],
+  shows: null,
   isLoading: true,
   error: null,
 };
 
 const Starred = () => {
-  const [starred] = usePersistedReducer();
+  const [starred] = useShows();
 
   const [{ shows, isLoading, error }, dispatch] = useReducer(
     reducer,
@@ -58,7 +58,7 @@ const Starred = () => {
     <MainPageLayout>
       {isLoading && <div> Shows are still loading </div>}
       {error && <div> Error occured : {error}</div>}
-      {!isLoading && !shows && <div> No shows were added </div>}
+      {!isLoading && !shows && <div> No shows are added </div>}
       {!isLoading && !error && shows && <ShowGrid data={shows} />}
     </MainPageLayout>
   );

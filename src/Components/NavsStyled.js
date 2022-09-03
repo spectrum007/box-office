@@ -16,7 +16,11 @@ export const LinkStyled = styled(Link)`
   text-decoration: none;
   color: ${({ theme }) => theme.mainColors.gray};
   &.active {
-    color: ${({ theme }) => theme.mainColors.blue};
+    color: ${props => {
+      return props.to === '/'
+        ? props.theme.mainColors.red
+        : props.theme.mainColors.blue;
+    }};
     &:after {
       content: '';
       position: absolute;
@@ -24,7 +28,11 @@ export const LinkStyled = styled(Link)`
       height: 2px;
       left: 0%;
       bottom: 0;
-      background-color: ${({ theme }) => theme.mainColors.blue};
+      background-color: ${props => {
+        return props.to === '/'
+          ? props.theme.mainColors.red
+          : props.theme.mainColors.blue;
+      }};
       animation: slide-in 0.3s ease-in forwards;
       @keyframes slide-in {
         from {

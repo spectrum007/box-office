@@ -17,7 +17,7 @@ function ShowsReducer(prevState, action) {
 
 // all this below code is used in Starred.js to merge useEffect and useReducer or useState to set data in the localstorage and get data from it and then fethch the shows id mentioned in the localStorage and return it in  form of an array of object
 
-export function usePersistedReducer(
+function usePersistedReducer(
   reducer = ShowsReducer,
   initialState = [],
   key = 'Shows'
@@ -33,9 +33,9 @@ export function usePersistedReducer(
 
   return [state, dispatch];
 }
-// export function useShows(key = 'shows') {
-//   return usePersistedReducer(ShowsReducer, [], key);
-// }
+export function useShows(key = 'shows') {
+  return usePersistedReducer(ShowsReducer, [], key);
+}
 
 // below code is for home.js it uses a useState with initialiser function to initialise the current state with the data in session storage data
 export function useLastQuery(key = 'lastQuery') {

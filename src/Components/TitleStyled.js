@@ -5,10 +5,13 @@ export const TitleWrapper = styled.div`
   margin: 0 0 40px;
 
   h1 {
-    color: ${({ theme }) => theme.mainColors.blue};
     letter-spacing: 10px;
     text-transform: uppercase;
     margin: 0 0 10px;
+    color: ${({ theme }) => theme.mainColors.blue};
+    &.shows {
+      color: ${({ theme }) => theme.mainColors.red};
+    }
   }
 
   p {
